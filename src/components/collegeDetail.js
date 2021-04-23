@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { Spin } from 'antd';
 import { Descriptions } from 'antd';
-import { Space, Row, Card } from 'antd';
+import { Space, Row, Card, Col} from 'antd';
 
 import { SERVERURL } from '../config';
 import StudentList from './studentList';
@@ -30,10 +30,6 @@ const CollegeDetail = (props) => {
 
     const collegeDetails = (
         <div>
-
-
-
-
             <Descriptions
                 title="College Details"
                 bordered
@@ -50,7 +46,7 @@ const CollegeDetail = (props) => {
 
     return (
         <Row align="center">
-
+            <Col>
             <Space direction="vertical">
                 <Card>
                     {collegeDataLoading ? loading : collegeDetails}
@@ -62,6 +58,7 @@ const CollegeDetail = (props) => {
                     < StudentList collegeid={collegeid} />
                 </Card>
             </Space>
+            </Col>
         </Row>
     );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Tag } from 'antd';
 import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import { Space, Row, Card } from 'antd';
+import { Space, Row, Card, Col } from 'antd';
 var config = require('../config');
 
 const columns = [
@@ -111,12 +111,14 @@ const CollegeList = (props) => {
     return (
         <div>
             <Row align="center">
+                <Col>
                 <Space direction="vertical">
                     <Card>
                         <Table columns={columns} dataSource={collegeListData} loading={collegeListDataLoading} />
 
                     </Card>
                 </Space>
+                </Col>
             </Row>
         </div>);
 }

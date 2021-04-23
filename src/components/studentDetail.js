@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { Spin } from 'antd';
 import { Descriptions } from 'antd';
-import { Space, Row, Card } from 'antd';
+import { Space, Row, Card, Col } from 'antd';
 
 
 
@@ -48,11 +48,13 @@ const StudentDetail = (props) => {
     return (
         <div>
             <Row align="center">
-                <Space direction="vertical">
-                    <Card>
-                        {studentDataLoading ? loading : studentDetails}
-                    </Card>
-                </Space>
+                <Col>
+                    <Space direction="vertical">
+                        <Card>
+                            {studentDataLoading ? loading : studentDetails}
+                        </Card>
+                    </Space>
+                </Col>
             </Row>
         </div>
     );
