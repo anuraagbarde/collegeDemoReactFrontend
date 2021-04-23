@@ -1,3 +1,3 @@
-let SERVERURL = "http://localhost:9000/"
+let SERVERURL = "https://bardecollegedemo.herokuapp.com/"
 
 module.exports.SERVERURL = SERVERURL; 

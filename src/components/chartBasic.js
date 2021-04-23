@@ -91,13 +91,13 @@ const ChartBasic = (props) => {
     return (
         <div>
             <Row justify="center" gutter="10">
-                <Col span={12} type="flex" align="middle">
+                <Col type="flex" align="middle">
                     <Card>
                         {isStateArrayReady ? stateChart : loadingchart}
 
                     </Card>
                 </Col>
-                <Col span={12} type="flex" align="middle">
+                <Col type="flex" align="middle">
                     <Card>
                         {isCoursesArrayReady ? coursesChart : loadingchart}
 
