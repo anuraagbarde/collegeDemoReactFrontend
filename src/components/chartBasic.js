@@ -1,33 +1,37 @@
 import { Chart } from "react-google-charts";
 import React, { useState, useEffect } from 'react';
+import { Spin } from 'antd';
+import { Row, Col } from 'antd';
+var config = require('../config');
 
 const ChartBasic = (props) => {
     const [stateArray, setStateArray] = useState([['State', 'Count']]);
     const [isStateArrayReady, setIsStateArrayReady] = useState(false);
-    
+
     const [coursesArray, setCoursesArray] = useState([['Courses', 'Count']]);
     const [isCoursesArrayReady, setIsCoursesArrayReady] = useState(false);
-    
+
     useEffect(() => {
-        fetch("http://localhost:9000/chartData/list/StatesvsCount/")
+        fetch(`${config.SERVERURL}chartData/list/StatesvsCount/`)
             .then(res => res.json())
             .then(data => {
-                setStateArray([...stateArray,...data])
+                setStateArray([...stateArray, ...data])
                 console.log(stateArray);
                 setIsStateArrayReady(true);
             });
 
-        fetch("http://localhost:9000/chartData/list/CoursesvsCount/")
+        fetch(`${config.SERVERURL}chartData/list/CoursesvsCount/`)
             .then(res => res.json())
             .then(data => {
-                setCoursesArray([...coursesArray,...data])
+                setCoursesArray([...coursesArray, ...data])
                 console.log(coursesArray);
                 setIsCoursesArrayReady(true);
             });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const stateChart = (
-        <div>
+        <div margin="100">
             <Chart
                 width={'500px'}
                 height={'300px'}
@@ -43,7 +47,7 @@ const ChartBasic = (props) => {
     )
 
     const coursesChart = (
-        <div>
+        <div margin="100">
             <Chart
                 width={'500px'}
                 height={'300px'}
@@ -58,19 +62,23 @@ const ChartBasic = (props) => {
         </div>
     )
 
-    const loadingchart = 
-    (
-        <div>
-            <p>loading</p>
-        </div>
-    )
+    const loadingchart =
+        (
+            <div>
+                <Spin />
+            </div>
+        )
 
     return (
         <div>
-            
-            { isStateArrayReady? stateChart : loadingchart }
-            
-            { isCoursesArrayReady? coursesChart : loadingchart }
+            <Row justify="center" gutter="10%">
+                <Col span={12} type="flex" align="middle">
+                { isStateArrayReady ? stateChart : loadingchart}
+                </Col>
+                <Col span={12} type="flex" align="middle">
+                { isCoursesArrayReady ? coursesChart : loadingchart}
+                </Col>
+            </Row>
         </div>
     );
 }
