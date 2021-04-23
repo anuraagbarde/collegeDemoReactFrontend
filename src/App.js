@@ -10,8 +10,8 @@ import CollegeList from './components/collegeList';
 function App() {
   return (
     <Router>
+      <NavBar/>
       <div>
-        <NavBar/>
         <Switch>
           <Route exact path='/' component={Dashboard}></Route>
           <Route exact path='/college/id/:collegeid' component={CollegeDetail}></Route>
