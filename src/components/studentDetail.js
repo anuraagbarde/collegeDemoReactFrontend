@@ -16,7 +16,6 @@ const StudentDetail = (props) => {
     useEffect(() => {
         fetch(`${SERVERURL}student/id/${studentid}`)
             .then(res => res.json())
-            .then(data => { console.log(data); return data; })
             .then(data => setStudentData(data[0]))
             .then(t => setStudentDataLoading(false));
 

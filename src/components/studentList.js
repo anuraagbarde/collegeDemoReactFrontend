@@ -55,7 +55,7 @@ const StudentList = (props) => {
             .then(res => res.json())
             .then(data => setStudentListData(data))
             .then(t => setStudentListDataLoading(false))
-            .catch(err => console.log(err));
+            .catch(err => alert(err));
     }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

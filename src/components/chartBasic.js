@@ -18,7 +18,6 @@ const ChartBasic = (props) => {
             .then(res => res.json())
             .then(data => {
                 setStateArray([...stateArray, ...data])
-                console.log(stateArray);
                 setIsStateArrayReady(true);
             });
 
@@ -26,7 +25,6 @@ const ChartBasic = (props) => {
             .then(res => res.json())
             .then(data => {
                 setCoursesArray([...coursesArray, ...data])
-                console.log(coursesArray);
                 setIsCoursesArrayReady(true);
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,7 +46,6 @@ const ChartBasic = (props) => {
                     {
                         eventName: "select",
                         callback({ chartWrapper }) {
-                            console.log(stateArray[chartWrapper.getChart().getSelection()[0].row][0])
                             history.push('/college/state/' + stateArray[chartWrapper.getChart().getSelection()[0].row + 1][0] ) 
                         }
                     }
@@ -74,7 +71,6 @@ const ChartBasic = (props) => {
                     {
                         eventName: "select",
                         callback({ chartWrapper }) {
-                            console.log(coursesArray[chartWrapper.getChart().getSelection()[0].row][0])
                             history.push('/college/course/' + coursesArray[chartWrapper.getChart().getSelection()[0].row + 1][0] ) 
                         }
                     }

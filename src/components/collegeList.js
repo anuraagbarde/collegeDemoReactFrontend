@@ -41,7 +41,7 @@ const columns = [
         title: 'Number of Students',
         dataIndex: 'noOfStudents',
         key: 'noOfStudents',
-        sorter: (a, b) => a.numberOfStudents - b.numberOfStudents,
+        sorter: (a, b) => a.noOfStudents - b.noOfStudents,
         sortDirections: ['descend', 'ascend'],
     },
     {
@@ -80,28 +80,28 @@ const CollegeList = (props) => {
                 .then(res => res.json())
                 .then(data => setCollegeListData(data))
                 .then(t => setCollegeListDataLoading(false))
-                .catch(err => console.log(err));
+                .catch(err => alert(err));
         }
         if (props.filterBy === "course") {
             fetch(`${config.SERVERURL}college/course/${coursename}/`)
                 .then(res => res.json())
                 .then(data => setCollegeListData(data))
                 .then(t => setCollegeListDataLoading(false))
-                .catch(err => console.log(err));
+                .catch(err => alert(err));
         }
         if (props.filterBy === "state") {
             fetch(`${config.SERVERURL}college/state/${statename}/`)
                 .then(res => res.json())
                 .then(data => setCollegeListData(data))
                 .then(t => setCollegeListDataLoading(false))
-                .catch(err => console.log(err));
+                .catch(err => alert(err));
         }
         if (props.filterBy === "none") {
             fetch(`${config.SERVERURL}college/list/`)
                 .then(res => res.json())
                 .then(data => setCollegeListData(data))
                 .then(t => setCollegeListDataLoading(false))
-                .catch(err => console.log(err));
+                .catch(err => alert(err));
         }
     }
 
