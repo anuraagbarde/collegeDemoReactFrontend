@@ -72,8 +72,16 @@ const CollegeList = (props) => {
     const [collegeListDataLoading, setCollegeListDataLoading] = useState(true);
     const { statename } = useParams();
     const { coursename } = useParams();
+    const { collegeid } = useParams();
 
     useEffect(() => {
+        if (props.filterBy === "simillar") {
+            fetch(`${config.SERVERURL}college/simillar/${collegeid}/`)
+                .then(res => res.json())
+                .then(data => setCollegeListData(data))
+                .then(t => setCollegeListDataLoading(false))
+                .catch(err => console.log(err));
+        }
         if (props.filterBy === "course") {
             fetch(`${config.SERVERURL}college/course/${coursename}/`)
                 .then(res => res.json())

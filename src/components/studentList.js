@@ -63,7 +63,6 @@ const StudentList = (props) => {
 
     return (
         <div>
-            <h2>Student List</h2>
             <Table columns={columns} dataSource={studentListData} loading={studentListDataLoading} />
         </div>);
 }

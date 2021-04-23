@@ -6,6 +6,7 @@ import { Space, Row, Card } from 'antd';
 
 import { SERVERURL } from '../config';
 import StudentList from './studentList';
+import CollegeList from './collegeList';
 
 const CollegeDetail = (props) => {
     const { collegeid } = useParams();
@@ -55,7 +56,10 @@ const CollegeDetail = (props) => {
                 <Card>
                     {collegeDataLoading ? loading : collegeDetails}
                 </Card>
-                <Card>
+                <Card title="Simillar colleges">
+                    <CollegeList filterBy="simillar" />
+                </Card>
+                <Card title="Students of the college">
                     < StudentList collegeid={collegeid} />
                 </Card>
             </Space>
