@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { Spin } from 'antd';
 import { Descriptions } from 'antd';
+import { Space, Row, Card } from 'antd';
 
 
 
@@ -19,7 +20,7 @@ const StudentDetail = (props) => {
             .then(data => setStudentData(data[0]))
             .then(t => setStudentDataLoading(false));
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const loading =
@@ -31,23 +32,29 @@ const StudentDetail = (props) => {
 
     const studentDetails = (
         <div>
-            
-        <Descriptions
-          title="Student Details"
-          bordered
-          column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
-        >
-          <Descriptions.Item label="Name">{studentData.name}</Descriptions.Item>
-          <Descriptions.Item label="Year of Batch">{studentData.yearOfBatch}</Descriptions.Item>
-          <Descriptions.Item label="College ID">{studentData.college}</Descriptions.Item>
-        </Descriptions>
-      </div>
+
+            <Descriptions
+                title="Student Details"
+                bordered
+                column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
+            >
+                <Descriptions.Item label="Name">{studentData.name}</Descriptions.Item>
+                <Descriptions.Item label="Year of Batch">{studentData.yearOfBatch}</Descriptions.Item>
+                <Descriptions.Item label="College ID">{studentData.college}</Descriptions.Item>
+            </Descriptions>
+        </div>
 
     )
 
     return (
         <div>
-            {studentDataLoading ? loading : studentDetails}
+            <Row align="center">
+                <Space direction="vertical">
+                    <Card>
+                        {studentDataLoading ? loading : studentDetails}
+                    </Card>
+                </Space>
+            </Row>
         </div>
     );
 }

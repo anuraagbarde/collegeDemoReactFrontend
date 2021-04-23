@@ -1,9 +1,8 @@
-
 import { Link } from 'react-router-dom'
 import { PageHeader } from 'antd';
 function NavBar() {
     return (
-        <div>
+        <div style={{backgroundColor:"#B7B8B6", color:"white",marginBottom:20}}>
             <Link to="/">
                 <PageHeader
                     className="site-page-header"

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Tag } from 'antd';
+import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import { Space, Row, Card } from 'antd';
 var config = require('../config');
-
-
-
 
 const columns = [
     {
@@ -35,14 +34,14 @@ const columns = [
         title: 'Year Founded',
         dataIndex: 'yearFounded',
         key: 'yearFounded',
-        sorter: (a, b) => a.year - b.year,
+        sorter: (a, b) => a.yearFounded - b.yearFounded,
         sortDirections: ['descend', 'ascend'],
     },
     {
         title: 'Number of Students',
         dataIndex: 'noOfStudents',
         key: 'noOfStudents',
-        sorter: (a, b) => a.numberStudents - b.numberStudents,
+        sorter: (a, b) => a.numberOfStudents - b.numberOfStudents,
         sortDirections: ['descend', 'ascend'],
     },
     {
@@ -71,20 +70,46 @@ const columns = [
 const CollegeList = (props) => {
     const [collegeListData, setCollegeListData] = useState([]);
     const [collegeListDataLoading, setCollegeListDataLoading] = useState(true);
+    const { statename } = useParams();
+    const { coursename } = useParams();
 
     useEffect(() => {
-        fetch(`${config.SERVERURL}college/list/`)
-            .then(res => res.json())
-            .then(data => setCollegeListData(data))
-            .then(t => setCollegeListDataLoading(false))
-            .catch(err => console.log(err));
+        if (props.filterBy === "course") {
+            fetch(`${config.SERVERURL}college/course/${coursename}/`)
+                .then(res => res.json())
+                .then(data => setCollegeListData(data))
+                .then(t => setCollegeListDataLoading(false))
+                .catch(err => console.log(err));
+        }
+        if (props.filterBy === "state") {
+            fetch(`${config.SERVERURL}college/state/${statename}/`)
+                .then(res => res.json())
+                .then(data => setCollegeListData(data))
+                .then(t => setCollegeListDataLoading(false))
+                .catch(err => console.log(err));
+        }
+        if (props.filterBy === "none") {
+            fetch(`${config.SERVERURL}college/list/`)
+                .then(res => res.json())
+                .then(data => setCollegeListData(data))
+                .then(t => setCollegeListDataLoading(false))
+                .catch(err => console.log(err));
+        }
     }
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         , [])
 
     return (
         <div>
-            <Table columns={columns} dataSource={collegeListData} loading={collegeListDataLoading} />
+            <Row align="center">
+                <Space direction="vertical">
+                    <Card>
+                        <Table columns={columns} dataSource={collegeListData} loading={collegeListDataLoading} />
+
+                    </Card>
+                </Space>
+            </Row>
         </div>);
 }
 

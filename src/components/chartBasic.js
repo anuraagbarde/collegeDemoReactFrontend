@@ -1,10 +1,12 @@
 import { Chart } from "react-google-charts";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Spin } from 'antd';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
+import { useHistory } from 'react-router-dom'
 var config = require('../config');
 
 const ChartBasic = (props) => {
+    const history = useHistory(); 
     const [stateArray, setStateArray] = useState([['State', 'Count']]);
     const [isStateArrayReady, setIsStateArrayReady] = useState(false);
 
@@ -31,34 +33,55 @@ const ChartBasic = (props) => {
     }, [])
 
     const stateChart = (
-        <div margin="100">
+        <div >
             <Chart
-                width={'500px'}
-                height={'300px'}
+                // width={'500px'}
+                height={'400px'}
                 chartType="PieChart"
                 loader={isStateArrayReady}
                 data={stateArray}
                 options={{
                     title: 'Colleges in State',
+                    pieHole: 0.35,
                 }}
+                chartEvents={[
+                    {
+                        eventName: "select",
+                        callback({ chartWrapper }) {
+                            console.log(stateArray[chartWrapper.getChart().getSelection()[0].row][0])
+                            history.push('/college/state/' + stateArray[chartWrapper.getChart().getSelection()[0].row + 1][0] ) 
+                        }
+                    }
+                ]}
                 rootProps={{ 'data-testid': '1' }}
             />
         </div>
     )
 
     const coursesChart = (
-        <div margin="100">
+        <div >
             <Chart
-                width={'500px'}
-                height={'300px'}
+                // width={"100%"}
+                height={'400px'}
                 chartType="PieChart"
                 loader={isCoursesArrayReady}
                 data={coursesArray}
                 options={{
                     title: 'Courses available in colleges',
+                    pieHole: 0.35,
                 }}
+                chartEvents={[
+                    {
+                        eventName: "select",
+                        callback({ chartWrapper }) {
+                            console.log(coursesArray[chartWrapper.getChart().getSelection()[0].row][0])
+                            history.push('/college/course/' + coursesArray[chartWrapper.getChart().getSelection()[0].row + 1][0] ) 
+                        }
+                    }
+                ]}
+    
                 rootProps={{ 'data-testid': '1' }}
-            />
+                />
         </div>
     )
 
@@ -71,12 +94,18 @@ const ChartBasic = (props) => {
 
     return (
         <div>
-            <Row justify="center" gutter="10%">
+            <Row justify="center" gutter="10">
                 <Col span={12} type="flex" align="middle">
-                { isStateArrayReady ? stateChart : loadingchart}
+                    <Card>
+                        {isStateArrayReady ? stateChart : loadingchart}
+
+                    </Card>
                 </Col>
                 <Col span={12} type="flex" align="middle">
-                { isCoursesArrayReady ? coursesChart : loadingchart}
+                    <Card>
+                        {isCoursesArrayReady ? coursesChart : loadingchart}
+
+                    </Card>
                 </Col>
             </Row>
         </div>
